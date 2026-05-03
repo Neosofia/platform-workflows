@@ -1,8 +1,7 @@
-# Reusable workflow — Authentication Service test & coverage.
-# Called by authentication-ci.yml (upload_coverage: true)
-# and authentication-build-push.yml (upload_coverage: false).
+# Reusable workflow — Python test & coverage using uv and pytest.
+# Compatible with any Python service that uses uv and pytest.
 
-name: authentication-test
+name: test-python
 
 on:
   workflow_call:
@@ -11,6 +10,10 @@ on:
         description: "Upload HTML/XML coverage artifacts and push to Codecov"
         type: boolean
         default: false
+      codecov_flags:
+        description: "Codecov flag(s) to tag the coverage upload (e.g. the service name)"
+        type: string
+        default: ""
     secrets:
       CODECOV_TOKEN:
         required: false
@@ -74,5 +77,5 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           files: coverage.xml
-          flags: authentication
+          flags: ${{ inputs.codecov_flags }}
           token: ${{ secrets.CODECOV_TOKEN }}

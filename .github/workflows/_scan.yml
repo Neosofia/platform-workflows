@@ -1,8 +1,8 @@
-# Reusable workflow — Authentication Service Trivy vulnerability scan.
-# Called by authentication-trivy.yml (standalone + scheduled)
-# and authentication-build-push.yml (pre-publish gate).
+# Reusable workflow — Trivy vulnerability & secret scan.
+# Scans the lockfile (uv.lock) and a built Docker image.
+# Compatible with any Python service that uses uv and has a Dockerfile.
 
-name: authentication-scan
+name: scan
 
 on:
   workflow_call:
@@ -37,15 +37,15 @@ jobs:
           context: .
           file: Dockerfile
           load: true
-          tags: cdp-authentication-scan
-          cache-from: type=gha,scope=cdp-authentication-scan
-          cache-to: type=gha,scope=cdp-authentication-scan,mode=max
+          tags: ${{ github.event.repository.name }}-scan
+          cache-from: type=gha,scope=${{ github.event.repository.name }}-scan
+          cache-to: type=gha,scope=${{ github.event.repository.name }}-scan,mode=max
 
       - name: Scan Docker image for CVEs
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: image
-          image-ref: cdp-authentication-scan
+          image-ref: ${{ github.event.repository.name }}-scan
           scanners: vuln
           severity: CRITICAL,HIGH
           exit-code: "1"
