@@ -37,15 +37,15 @@ jobs:
           context: .
           file: Dockerfile
           load: true
-          tags: pdc-authentication-scan
-          cache-from: type=gha,scope=pdc-authentication-scan
-          cache-to: type=gha,scope=pdc-authentication-scan,mode=max
+          tags: cdp-authentication-scan
+          cache-from: type=gha,scope=cdp-authentication-scan
+          cache-to: type=gha,scope=cdp-authentication-scan,mode=max
 
       - name: Scan Docker image for CVEs
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: image
-          image-ref: pdc-authentication-scan
+          image-ref: cdp-authentication-scan
           scanners: vuln
           severity: CRITICAL,HIGH
           exit-code: "1"
