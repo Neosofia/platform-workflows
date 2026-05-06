@@ -60,6 +60,17 @@ jobs:
             --cov-report=xml:../../coverage.xml \
             -v
 
+      - name: Run container integration tests
+        env:
+          RUN_DOCKER_TESTS: 1
+        working-directory: ${{ inputs.working_directory }}
+        run: |
+          if [ -d "tests/integration" ]; then
+            uv run --directory . pytest tests/integration/ -v
+          else
+            echo "No integration tests found, skipping."
+          fi
+
       - name: Upload HTML coverage report
         if: inputs.upload_coverage
         uses: actions/upload-artifact@v7
