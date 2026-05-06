@@ -66,7 +66,7 @@ jobs:
         working-directory: ${{ inputs.working_directory }}
         run: |
           if [ -d "tests/integration" ]; then
-            uv run --directory . pytest tests/integration/ -v
+            uv run --directory . pytest tests/integration/ --no-cov -v
           else
             echo "No integration tests found, skipping."
           fi
