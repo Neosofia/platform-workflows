@@ -14,6 +14,10 @@ on:
         description: "Codecov flag(s) to tag the coverage upload (e.g. the service name)"
         type: string
         default: ""
+      working_directory:
+        description: "The directory where the python package is located"
+        type: string
+        default: "."
     secrets:
       CODECOV_TOKEN:
         required: false
@@ -41,14 +45,14 @@ jobs:
           enable-cache: true
 
       - name: Install dependencies
-        working-directory: .
+        working-directory: ${{ inputs.working_directory }}
         run: uv sync --all-groups --frozen
 
       - name: Run tests with coverage
         env:
           ENV: test
           SCHEMAS_DIR: ${{ github.workspace }}/_schemas
-        working-directory: .
+        working-directory: ${{ inputs.working_directory }}
         run: |
           uv run --directory . pytest tests/ \
             --cov=src \
