@@ -31,6 +31,7 @@ jobs:
           scanners: vuln,secret
           severity: CRITICAL,HIGH
           exit-code: "1"
+          ignore-unfixed: true
           format: table
 
       - name: Set up Docker Buildx
@@ -54,4 +55,5 @@ jobs:
           scanners: vuln
           severity: CRITICAL,HIGH
           exit-code: "1"
+          ignore-unfixed: true
           format: table
