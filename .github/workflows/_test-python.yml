@@ -57,7 +57,8 @@ jobs:
           uv run --directory . pytest tests/ \
             --cov=src \
             --cov-report=term-missing \
-            --cov-report=xml:../../coverage.xml \
+            --cov-report=xml:${{ github.workspace }}/coverage.xml \
+            --cov-report=html:${{ github.workspace }}/htmlcov \
             -v
 
       - name: Run container integration tests
