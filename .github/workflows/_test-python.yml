@@ -31,10 +31,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Checkout schemas
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: Neosofia/schemas
           path: _schemas
@@ -74,7 +74,7 @@ jobs:
 
       - name: Upload HTML coverage report
         if: inputs.upload_coverage
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-html
           path: ${{ github.workspace }}/htmlcov/
@@ -82,7 +82,7 @@ jobs:
 
       - name: Upload XML coverage report
         if: inputs.upload_coverage
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-xml
           path: ${{ github.workspace }}/coverage.xml
