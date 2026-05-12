@@ -16,7 +16,6 @@ jobs:
   scan:
     name: Vulnerability & Secret Scan (Trivy)
     runs-on: ubuntu-latest
-    env:
     permissions:
       contents: read
 

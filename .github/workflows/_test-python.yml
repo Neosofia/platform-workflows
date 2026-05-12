@@ -26,7 +26,6 @@ jobs:
   test:
     name: Test & Coverage
     runs-on: ubuntu-latest
-    env:
     permissions:
       contents: read
 
